@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="ru" data-stage="0">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Для тебя</title>
+  <meta name="description" content="Сначала ответь на три вопроса">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0b0a26">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Для тебя">
+  <meta property="og:description" content="Сначала ответь на три вопроса">
+  <meta property="og:image" content="https://knate42.github.io/solnyshko/assets/og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="preload" href="assets/fonts/bona-nova-400-italic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/bona-nova-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/style.css">
+  <script>document.documentElement.classList.add('js')</script>
+  <script src="assets/app.js" defer></script>
+</head>
+<body>
+  <!-- Небо: слои меняются по мере ответов (html[data-stage] от 0 до 4) -->
+  <div class="scene" aria-hidden="true">
+    <div class="sky">
+      <div class="sky__layer sky__layer--0 is-on"></div>
+      <div class="sky__layer sky__layer--1"></div>
+      <div class="sky__layer sky__layer--2"></div>
+      <div class="sky__layer sky__layer--3"></div>
+      <div class="sky__layer sky__layer--4"></div>
+    </div>
+    <div class="stars"><i></i><i></i><i></i></div>
+    <div class="sun">
+      <div class="sun__glow"></div>
+      <div class="sun__disc"></div>
+      <div class="sun__disc sun__disc--day"></div>
+    </div>
+    <svg class="hills hills--night" viewBox="0 0 400 200" preserveAspectRatio="none">
+      <path d="M0 96C54 70 108 84 170 76S300 62 400 84V200H0Z"/>
+      <path d="M0 128C62 108 126 132 206 114S336 100 400 118V200H0Z"/>
+      <path d="M0 160C76 142 150 166 238 150S362 140 400 150V200H0Z"/>
+    </svg>
+    <svg class="hills hills--dawn" viewBox="0 0 400 200" preserveAspectRatio="none">
+      <path d="M0 96C54 70 108 84 170 76S300 62 400 84V200H0Z"/>
+      <path d="M0 128C62 108 126 132 206 114S336 100 400 118V200H0Z"/>
+      <path d="M0 160C76 142 150 166 238 150S362 140 400 150V200H0Z"/>
+    </svg>
+    <svg class="hills hills--day" viewBox="0 0 400 200" preserveAspectRatio="none">
+      <path d="M0 96C54 70 108 84 170 76S300 62 400 84V200H0Z"/>
+      <path d="M0 128C62 108 126 132 206 114S336 100 400 118V200H0Z"/>
+      <path d="M0 160C76 142 150 166 238 150S362 140 400 150V200H0Z"/>
+    </svg>
+    <div class="flash"></div>
+    <canvas class="particles"></canvas>
+  </div>
+
+  <ol class="progress" aria-hidden="true">
+    <li><svg viewBox="0 0 24 24"><use href="#heart"/></svg></li>
+    <li><svg viewBox="0 0 24 24"><use href="#heart"/></svg></li>
+    <li><svg viewBox="0 0 24 24"><use href="#heart"/></svg></li>
+  </ol>
+
+  <main>
+    <section class="screen" data-screen="intro">
+      <div class="screen__inner">
+        <h1 class="question reveal" tabindex="-1">Это для тебя</h1>
+        <p class="lead reveal">Сначала ответь на три вопроса</p>
+        <div class="actions reveal">
+          <button class="btn btn--sun" type="button" data-action="start">Начать</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" data-screen="date" hidden>
+      <div class="screen__inner">
+        <p class="sr-only">Вопрос 1 из 3</p>
+        <h2 class="question reveal" tabindex="-1">Когда у нас годовщина?</h2>
+        <p class="lead reveal">Выбери день и месяц</p>
+        <div class="picker reveal" role="group" aria-label="Дата годовщины">
+          <div class="picker__band"></div>
+          <div class="wheel wheel--day" data-wheel="day" tabindex="0" role="spinbutton" aria-label="День"><ol></ol></div>
+          <div class="wheel wheel--month" data-wheel="month" tabindex="0" role="spinbutton" aria-label="Месяц"><ol></ol></div>
+        </div>
+        <p class="note" data-note="date" aria-live="polite"></p>
+        <div class="actions reveal">
+          <button class="btn btn--sun" type="button" data-action="check-date">Ответить</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" data-screen="love" hidden>
+      <div class="screen__inner">
+        <p class="sr-only">Вопрос 2 из 3</p>
+        <h2 class="question reveal" tabindex="-1">Ты любишь меня?</h2>
+        <div class="actions actions--pair reveal">
+          <button class="btn btn--sun" type="button" data-answer="yes">Да</button>
+          <button class="btn btn--ghost" type="button" data-answer="no">Нет</button>
+        </div>
+        <p class="note" data-note="love" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section class="screen" data-screen="gift" hidden>
+      <div class="screen__inner">
+        <p class="sr-only">Вопрос 3 из 3</p>
+        <h2 class="question reveal" tabindex="-1">Ты готова увидеть мой подарок?</h2>
+        <div class="actions actions--pair reveal">
+          <button class="btn btn--sun" type="button" data-answer="yes">Да</button>
+          <button class="btn btn--ghost" type="button" data-answer="no">Нет</button>
+        </div>
+        <p class="note" data-note="gift" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- Письмо. Текст можно править прямо здесь: каждый абзац — отдельный <p> -->
+    <section class="screen screen--letter" data-screen="letter" hidden>
+      <article class="letter">
+        <h2 class="letter__hello" tabindex="-1">Мое солнышко.</h2>
+        <div class="letter__body">
+          <p>Это еще один способ сказать тебе мое огромное «Спасибо» и еще большее «Люблю». Ты мой свет, единственный и неповторимый, и я тебя обожаю. Очень очень сильно) Я буду идти рука об руку с тобой, пока наши сердца принадлежат друг другу. Я никогда не уйду от проблем — я буду решать их на месте, и не важно, чьи это проблемы. Я всегда буду рядом. Я буду рядом, потому что только с тобой я обрел искреннюю веру в светлое будущее. Самое светлое. А обрел я его, потому что ты прекрасна :)</p>
+          <p>Ты прекрасна в моих глазах потому, что ты мне нравишься во всём. Ты безумно красива, а твое поведение меня иногда вообще с ума сводит (отсылочка) :)</p>
+          <p>А ведь изначально мы оба и не думали, что будем в отношениях)</p>
+        </div>
+        <p class="letter__thanks">Еще раз огромное тебе спасибо!!!</p>
+        <button class="letter__heart" type="button" data-action="hearts" aria-label="Сердечки">
+          <svg viewBox="0 0 24 24"><use href="#heart"/></svg>
+        </button>
+      </article>
+      <button class="replay" type="button" data-action="replay">Пройти заново</button>
+    </section>
+  </main>
+
+  <noscript><p class="noscript">Чтобы открыть открытку, включи JavaScript в браузере.</p></noscript>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="heart" viewBox="0 0 24 24"><path d="M12 20.7C7.2 17 3 13.4 3 9.3 3 6.6 5.1 4.5 7.8 4.5c1.7 0 3.2.9 4.2 2.3 1-1.4 2.5-2.3 4.2-2.3 2.7 0 4.8 2.1 4.8 4.8 0 4.1-4.2 7.7-9 11.4Z"/></symbol>
+  </svg>
+</body>
+</html>

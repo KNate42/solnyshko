@@ -501,9 +501,7 @@
   function watchReading() {
     const update = () => {
       readingFrame = 0;
-      const reading = window.scrollY > window.innerHeight * 0.35;
-      root.classList.toggle('is-reading', reading);
-      particles.setAmbient(!reading);
+      particles.setAmbient(window.scrollY <= window.innerHeight * 0.35);
     };
     window.addEventListener('scroll', () => {
       if (!readingFrame) readingFrame = requestAnimationFrame(update);

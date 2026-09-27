@@ -142,10 +142,7 @@ html { --sun-y: 119%; }
 }
 [data-stage="2"] .sun__glow { opacity: .7; }
 [data-stage="3"] .sun__glow { opacity: .9; }
-[data-stage="4"] .sun__glow { opacity: 1; animation: breathe 7s ease-in-out 3.6s infinite; }
-/* Пока читается письмо и солнце закрыто карточкой, ничего не анимируем зря */
-.is-reading .sun__glow { animation-play-state: paused; }
-@keyframes breathe { 50% { transform: scale(1.06); } }
+[data-stage="4"] .sun__glow { opacity: 1; }
 
 .sun__disc {
   width: 30vmin;
